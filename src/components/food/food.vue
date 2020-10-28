@@ -38,13 +38,13 @@
 								<span class="name">{{v.username}}</span>
 								<img :src="v.avatar" class="avatar" width="12" height="12"/>
 							</div>
-							<div class="time">{{v.rateTime}}</div>
+							<div class="time">{{v.rateTime | formatDate}}</div>
 							<p class="text">
 								<span :class="{'icon-thumb_up':v.rateType===0,'icon-thumb_down':v.rateType===1}"></span>{{v.text}}
 							</p>
 						</li>
 					</ul>
-					<div class="no-rating" v-show="!food.ratings || !food.ratings.length"></div>
+					<div class="no-rating" v-show="!food.ratings || !food.ratings.length">暂无评价</div>
 				</div>
 			</div>
 		</div>
@@ -57,6 +57,7 @@
 	import carcontrol from "../carcontrol/carcontrol.vue"
 	import split from "../splite/split.vue"
 	import ratingselect from "../ratingselect/ratingselect.vue"
+	import {formatDate} from "../../common/js/date.js"
 	
 	const POSITIVE=0;
 	const NEGATIVE=1;
@@ -125,6 +126,12 @@
 				
 				this.onlyContent=e
 				this.scroll.refresh()
+			}
+		},
+		filters:{
+			formatDate(time){
+				let date = new Date(time);
+				return formatDate(date,"yyyy-MM-dd hh:mm")
 			}
 		},
 		components:{
@@ -309,5 +316,10 @@
 	}
 	.rating-wrapper .rating-item .text .icon-thumb_down{
 		color: rgb(147,153,159);
+	}
+	.no-rating{
+		padding:16px 0;
+		font-size: 12px;
+		color:rgb(147,153,159)
 	}
 </style>

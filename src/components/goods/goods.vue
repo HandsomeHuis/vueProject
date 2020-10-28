@@ -67,13 +67,13 @@
 //				})
 			this.$http.get("./data/data.json")
 				.then((response)=>{
-  						this.goods=response.data.goods;
-  						this.$nextTick(()=>{
-  							this._initScroll();
-  							this._calculateHeight()
-  						})
-  						
-  					
+						this.goods=response.data.goods;
+						this.$nextTick(()=>{
+							this._initScroll();
+							this._calculateHeight()
+						})
+						
+					
 				})
 		},
 		data(){

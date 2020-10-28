@@ -3,11 +3,13 @@
   		<v-header :seller="seller"></v-header>
   		<div class="wapper">
   			<div class="tab">
-	  			<router-link to="/goods" class="router-link-active">商品</router-link>
+	  			<router-link to="/goods">商品</router-link>
 	  			<router-link to="/ratings">评价</router-link>
 	  			<router-link to="/seller">商家</router-link>
   			</div>
-  			<router-view :seller="seller"/>
+  			<keep-alive>
+  				<router-view :seller="seller" />
+  			</keep-alive>
   		</div>
   		
   </div>	
@@ -15,6 +17,7 @@
 
 <script>
 import header from "@/components/header/header.vue"
+import {urlParse} from "./common/js/usual.js"
 const ERR_OK =0
 export default {
   name: 'App',
@@ -23,7 +26,12 @@ export default {
   },
   data(){
   	return {
-  		seller:{}	
+  		seller:{
+			id:(()=>{
+				let queryParam=urlParse();
+				return queryParam.id
+			})()
+  		}
   	}
   },
   created(){
